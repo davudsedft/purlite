@@ -8,11 +8,11 @@ android {
 
     defaultConfig {
         applicationId "com.dabut.purcowlite"
-        minSdk 19
+        minSdk 21
         targetSdk 34
         versionCode 11
-        versionName "1.6"
-        setProperty("archivesBaseName", rootProject.name  + versionName)
+        versionName "1.7"
+        setProperty("archivesBaseName", rootProject.name + "-" + versionName)
     }
 
     buildTypes {

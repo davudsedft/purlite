@@ -3,6 +3,7 @@ package com.dabut.purcowlite;
 import static com.dabut.lib.v2ray.utils.V2rayConstants.SERVICE_CONNECTION_STATE_BROADCAST_EXTRA;
 import static com.dabut.lib.v2ray.utils.V2rayConstants.V2RAY_SERVICE_STATICS_BROADCAST_INTENT;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.ActionBar;
 import android.app.Activity;
@@ -36,6 +37,8 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 
 import java.io.BufferedReader;
@@ -126,7 +129,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         if (savedInstanceState == null) {
-            V2rayController.init(this, R.drawable.uuuu, "V2ray Android");
+            V2rayController.init(this, R.drawable.ic_launcher, "V2ray Android");
             contextt = findViewById(R.id.core_version);
 
             connected_server_delay = findViewById(R.id.connected_server_delay);
@@ -150,6 +153,12 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        if (Build.VERSION.SDK_INT >= 33) {
+            if (ContextCompat.checkSelfPermission(MainActivity.this, android.Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.POST_NOTIFICATIONS}, 101);
+            }
+
+        }
 
         // Check the connection delay of connected config.
         connected_server_delay.setOnClickListener(view -> {

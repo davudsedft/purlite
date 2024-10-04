@@ -11,10 +11,12 @@ import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.os.Build;
+import android.widget.RemoteViews;
 
 import androidx.annotation.RequiresApi;
 import androidx.core.app.NotificationCompat;
@@ -35,11 +37,25 @@ public class NotificationService {
 
     public TrafficListener trafficListener = new TrafficListener() {
         @Override
-        public void onTrafficChanged(long uploadSpeed, long downloadSpeed, long uploadedTraffic, long downloadedTraffic) {
+        public void onTrafficChanged(long uploadSpeed, long downloadSpeed, long uploadedTraffic, long downloadedTraffic , Context context) {
             if (mNotificationManager != null && notifcationBuilder != null) {
                 if (isNotificationOnGoing) {
-                    notifcationBuilder.setSubText("ترافیک ↓" + Utilities.parseTraffic(downloadedTraffic, false, false) + "  ↑" + Utilities.parseTraffic(uploadedTraffic, false, false));
-                    notifcationBuilder.setContentText(  Utilities.parseTraffic(downloadSpeed, false, true) + " | اپلود : ↑" + Utilities.parseTraffic(uploadSpeed, false, true));
+                    SharedPreferences Config = context.getSharedPreferences("config", Context.MODE_MULTI_PROCESS);
+
+                    RemoteViews notificationLayout = new RemoteViews(context.getPackageName(), R.layout.notification);
+
+                    // notificationLayout.setTextViewText(R.id.txtnotspeed, "ترافیک ↓" + Utilities.parseTraffic(downloadedTraffic, false, false));
+                    notificationLayout.setTextViewText(R.id.txttrafff," ↓ " + Utilities.parseTraffic(downloadedTraffic, false, false) + " |  ↑  " + Utilities.parseTraffic(uploadedTraffic, false, false));
+                    // notifcationBuilder.setContentText(  Utilities.parseTraffic(downloadSpeed, false, true) + " | اپلود : ↑" + Utilities.parseTraffic(uploadSpeed, false, true));
+                    notificationLayout.setTextViewText(R.id.speeeeddd," ↓ " +Utilities.parseTraffic(downloadSpeed, false, true) + " |  ↑" + Utilities.parseTraffic(uploadSpeed, false, true));
+                    Intent disconnectIntent = new Intent(context, context.getClass());
+                    disconnectIntent.setPackage(context.getPackageName());
+                    disconnectIntent.putExtra(V2rayConstants.V2RAY_SERVICE_COMMAND_EXTRA, V2rayConstants.SERVICE_COMMANDS.STOP_SERVICE);
+                    PendingIntent disconnectPendingIntent = PendingIntent.getService(context, 0, disconnectIntent, judgeForNotificationFlag());
+                    notificationLayout.setOnClickPendingIntent(R.id.button,PendingIntent.getService(context,0,disconnectIntent,PendingIntent.FLAG_UPDATE_CURRENT| PendingIntent.FLAG_IMMUTABLE));
+
+                    notifcationBuilder.setCustomContentView(notificationLayout);
+
                     mNotificationManager.notify(NOTIFICATION_ID, notifcationBuilder.build());
                 }
             }
@@ -72,15 +88,15 @@ public class NotificationService {
         disconnectIntent.putExtra(V2rayConstants.V2RAY_SERVICE_COMMAND_EXTRA, V2rayConstants.SERVICE_COMMANDS.STOP_SERVICE);
         PendingIntent disconnectPendingIntent = PendingIntent.getService(targetService, 0, disconnectIntent, judgeForNotificationFlag());
         notifcationBuilder = new NotificationCompat.Builder(targetService, notificationChannelID);
-        notifcationBuilder.setContentTitle(applicationName + "متصل شد")
-                .setSmallIcon(R.drawable.uuuu)
-                .setContentText("باز کردن")
-                .setOngoing(true)
+        notifcationBuilder
+                .setSmallIcon(R.drawable.ic_launcher)
                 .setShowWhen(false)
                 .setOnlyAlertOnce(true)
                 .setContentIntent(notificationContentPendingIntent)
                 .setDefaults(NotificationCompat.FLAG_ONLY_ALERT_ONCE)
-                .addAction(android.R.drawable.btn_minus, "قطع اتصال", disconnectPendingIntent);
+                .setStyle(new NotificationCompat.DecoratedCustomViewStyle());
+
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
             notifcationBuilder.setForegroundServiceBehavior(NotificationCompat.FOREGROUND_SERVICE_IMMEDIATE);
         } else {

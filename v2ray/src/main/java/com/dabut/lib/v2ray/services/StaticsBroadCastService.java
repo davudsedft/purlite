@@ -59,7 +59,7 @@ public class StaticsBroadCastService {
                     totalDownload = totalDownload + downloadSpeed;
                     totalUpload = totalUpload + uploadSpeed;
                     if (trafficListener != null) {
-                        trafficListener.onTrafficChanged(uploadSpeed, downloadSpeed, totalUpload, totalDownload);
+                        trafficListener.onTrafficChanged(uploadSpeed, downloadSpeed, totalUpload, totalDownload ,targetService);
                     }
                 }
                 SERVICE_DURATION = Utilities.convertIntToTwoDigit(hours) + ":" + Utilities.convertIntToTwoDigit(minutes) + ":" + Utilities.convertIntToTwoDigit(seconds);

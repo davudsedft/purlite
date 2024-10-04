@@ -7,7 +7,7 @@
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
-        android:icon="@drawable/uuuu"
+        android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:launchMode="singleTask"
         android:supportsRtl="true"
@@ -38,7 +38,7 @@
         <service
             android:name=".MyQSTileService"
             android:exported="true"
-            android:icon="@drawable/uuuu"
+            android:icon="@drawable/ic_launcher"
             android:label="@string/app_name"
             android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
             <intent-filter>
