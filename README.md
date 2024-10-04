@@ -5,7 +5,7 @@
 
 برای خروجی گرفتن از کتابخانه گو
 
-cd /v2ray/libs
+cd v2ray/libs
 
 go mod tidy
 
