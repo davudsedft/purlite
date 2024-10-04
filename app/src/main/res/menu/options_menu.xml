@@ -1,0 +1,13 @@
+<!-- res/menu/options_menu.xml -->
+<menu xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/action_settings"
+        android:orderInCategory="100"
+        android:icon="@drawable/tel"
+
+
+        app:showAsAction="always"
+        tools:ignore="MenuTitle" />
+</menu>

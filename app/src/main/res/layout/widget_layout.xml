@@ -1,0 +1,25 @@
+<!-- res/layout/widget_layout.xml -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/black"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <Button
+        android:id="@+id/myButton"
+        android:layout_width="50dp"
+        android:textSize="8sp"
+        android:background="@drawable/foff"
+        android:layout_height="50dp"
+        android:text="off" />
+
+    <TextView
+        android:textColor="@color/yello"
+
+        android:id="@+id/textView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="PurLite" />
+</LinearLayout>
