@@ -12,67 +12,59 @@
     tools:context=".MainActivity">
 
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:orientation="vertical">
+    <androidx.cardview.widget.CardView
 
+        android:id="@+id/vpnBtn"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_alignParentStart="true"
 
-        <androidx.cardview.widget.CardView
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_gravity="center"
+        android:layout_marginStart="120dp"
+        android:layout_marginEnd="120dp"
+        android:layout_marginBottom="50dp"
+        android:clickable="true"
+        android:shape="ring"
+        android:tag="1"
+        app:cardCornerRadius="75dp">
 
-            android:id="@+id/vpnBtn"
+        <ImageView
+            android:id="@+id/imgbtn"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:layout_alignParentStart="true"
-
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentBottom="true"
-            android:layout_gravity="bottom|center"
-            android:layout_marginStart="120dp"
-            android:layout_marginEnd="120dp"
-            android:layout_marginBottom="50dp"
-            android:clickable="true"
-            android:shape="ring"
-            android:tag="1"
-            app:cardCornerRadius="75dp">
-
-            <ImageView
-                android:id="@+id/imgbtn"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:layout_gravity="center"
-                android:background="@drawable/circle" />
-
-            <TextView
-                android:id="@+id/txtbtn"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:text="OFF"
-                android:textSize="22sp" />
-        </androidx.cardview.widget.CardView>
+            android:layout_gravity="center"
+            android:background="@drawable/circle" />
 
         <TextView
-            android:id="@+id/core_version"
+            android:id="@+id/txtbtn"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
+            android:layout_height="match_parent"
             android:gravity="center"
-            android:text="متصل نیست"
-            android:textColor="@color/white"
-            android:textSize="14sp" />
+            android:text="OFF"
+            android:textSize="22sp" />
+    </androidx.cardview.widget.CardView>
 
-
-    </LinearLayout>
+    <TextView
+        android:id="@+id/core_version"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:text="متصل نیست"
+        android:textColor="@color/gray2"
+        android:textSize="14sp" />
 
     <TextView
         android:id="@+id/connected_server_delay"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginVertical="8dp"
         android:gravity="center"
         android:text="تست سرور"
+        android:textColor="@color/gray2"
+
         android:textSize="14sp"
         android:textStyle="bold" />
 

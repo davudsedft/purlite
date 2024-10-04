@@ -69,8 +69,8 @@ import com.dabut.lib.v2ray.utils.V2rayConstants;
 public class MainActivity extends AppCompatActivity {
     ArrayList<String> vmessLinks, vmessLinks2, vmessLinks3, configarray, sslinks,vmesscount;
     ExecutorService executor;
-    ArrayList<Bestserver> people;
-    String youngestName;
+    ArrayList<Bestserver> pingrun;
+    String lowping;
     private Thread myt,http,httpp;
     static NotificationManager notifManager;
     private static final int PERMISSION_REQUEST_CODE = 200;
@@ -134,7 +134,7 @@ public class MainActivity extends AppCompatActivity {
 
             connected_server_delay = findViewById(R.id.connected_server_delay);
             vmessLinks = new ArrayList<String>();
-            people = new ArrayList<>();
+            pingrun = new ArrayList<>();
 
         }
 
@@ -144,12 +144,27 @@ public class MainActivity extends AppCompatActivity {
             if (V2rayController.getConnectionState() == V2rayConstants.CONNECTION_STATES.DISCONNECTED) {
 
 
-                cont();
+
+
+                if (contextt.getText().equals(" متصل نیست") || contextt.getText().toString().contains("مجدد") || contextt.getText().toString().contains("خطا") ){
+                    imgbtn.setBackgroundResource(R.drawable.yellow);
+                    txtbtn.setText("...");
+                    txtbtn.setTextColor(Color.YELLOW);
+
+
+                    cont();
+                }else {
+                    Toast.makeText(this, "صبر کنید", Toast.LENGTH_SHORT).show();
+                }
+
+
 
 
 
             } else {
                 V2rayController.stopV2ray(this);
+                contextt.setTextColor(Color.RED);
+
             }
         });
 
@@ -194,6 +209,7 @@ public class MainActivity extends AppCompatActivity {
             case DISCONNECTED:
                 txtbtn.setText("OFF");
                 contextt.setText(" متصل نیست");
+                contextt.setTextColor(Color.RED);
 
                 txtbtn.setTextColor(Color.rgb(219, 102, 200));
 
@@ -220,6 +236,7 @@ public class MainActivity extends AppCompatActivity {
 
                             contextt.setText("متصل شد");
 
+                            contextt.setTextColor(Color.GREEN);
 
 
 
@@ -229,6 +246,7 @@ public class MainActivity extends AppCompatActivity {
                         case DISCONNECTED:
                             txtbtn.setText("OFF");
                             contextt.setText(" متصل نیست");
+                            contextt.setTextColor(Color.RED);
 
                             //  connection.setBackgroundColor("");
                             imgbtn.setBackgroundResource(R.drawable.circle);
@@ -287,7 +305,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-        if (id == R.id.action_settings) {
+        if (id == R.id.tel) {
 
             Intent browserIntent2 = new Intent(Intent.ACTION_VIEW, Uri.parse("https://t.me/purcowbot"));
             startActivity(browserIntent2);
@@ -295,7 +313,11 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+        } else if (id == R.id.gith) {
+            Intent browserIntent2 = new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/davudsedft/purlite/releases"));
+            startActivity(browserIntent2);
             return true;
+
         }
         return super.onOptionsItemSelected(item);
     }
@@ -363,18 +385,18 @@ public class MainActivity extends AppCompatActivity {
 
 
                     if (server_delay>0) {
-                        people.add(new Bestserver(selectedText, longToIntJavaWithMath(server_delay)));
+                        pingrun.add(new Bestserver(selectedText, longToIntJavaWithMath(server_delay)));
 
                         @SuppressLint({"NewApi", "LocalSuppress"})
 
-                        Bestserver youngestPerson = Collections.min(people, Comparator.comparing(Bestserver::getAge));
-                        youngestName = youngestPerson.getName();
+                        Bestserver youngestPerson = Collections.min(pingrun, Comparator.comparing(Bestserver::getAge));
+                        lowping = youngestPerson.getName();
 
                         pova = getSharedPreferences("pova", Context.MODE_PRIVATE);
 
                         SharedPreferences.Editor iran2edit = pova.edit();
 
-                        iran2edit.putString(Pova, youngestName);
+                        iran2edit.putString(Pova, lowping);
                         iran2edit.apply();
 
 
@@ -636,7 +658,7 @@ public class MainActivity extends AppCompatActivity {
                     try {
                         Thread.sleep(10000); // تاخیر ۱۰ ثانیه
                         // اجرای عملیات مورد نظر
-                        if (people.size()>0){
+                        if (pingrun.size()>0){
                             if (executor.isTerminated()){
 
                                 runOnUiThread(new Runnable() {
@@ -661,7 +683,7 @@ public class MainActivity extends AppCompatActivity {
                                     @Override
                                     public void run() {
                                         contextt.setTextColor(Color.RED);
-                                        contextt.setText("مجدد تلاش کن");
+                                        contextt.setText("مجدد متصل شو");
 
                                     }
                                 });

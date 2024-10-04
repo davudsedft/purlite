@@ -1,5 +1,7 @@
 # purlite
-نسخه سبک پورکاو تحت نام پورلایت.مناسب خانواده ها و کسانی که میخان درگیر تنظیمات اضافه بشن.
+نسخه سبک پورکاو تحت نام پورلایت.مناسب خانواده ها و کسانی که میخان درگیر تنظیمات اضافه نشن.
+این نسخه فقط دارای یک دکمه خاموش و روشن کردن هست.همچنین  خاموش  و روشن  کردن توسط دکمه نوار کشویی بالا و ویجت هم میسر هست.
+
 
 
 
@@ -28,6 +30,7 @@ gomobile bind -ldflags '-s -w' -o purlite.aar -androidapi 21 -target android .
 ## Credits
 - https://github.com/xtls/xray-core
 - https://github.com/2dust/AndroidLibXrayLite
+- https://github.com/dev7dev/AndroidLibXrayLite
 - https://github.com/gvcgo/vpnparser
 
 
