@@ -470,6 +470,8 @@ public class MainActivity extends AppCompatActivity {
 
                         System.out.println("لینک معتبر است.");
 
+
+////
                         URL textUrl2 = null;
                         try {
                             textUrl2 = new URL(url2);
