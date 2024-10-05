@@ -9,6 +9,8 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.net.LocalSocket;
 import android.net.LocalSocketAddress;
 import android.net.VpnService;
@@ -22,6 +24,8 @@ import androidx.annotation.NonNull;
 import java.io.File;
 import java.io.FileDescriptor;
 import java.io.OutputStream;
+import java.util.ArrayList;
+import java.util.Set;
 
 import com.dabut.lib.v2ray.core.Tun2SocksExecutor;
 import com.dabut.lib.v2ray.core.V2rayCoreExecutor;
@@ -36,6 +40,9 @@ public class V2rayVPNService extends VpnService implements V2rayServicesListener
     private ParcelFileDescriptor tunnelInterface;
     private Tun2SocksExecutor tun2SocksExecutor;
     private V2rayCoreExecutor v2rayCoreExecutor;
+    ArrayList<String> selectedPackageList;
+    Set<String> retrievedPackages;
+    SharedPreferences prefsFromLib2,dns1,dns2;
     private NotificationService notificationService;
     private StaticsBroadCastService staticsBroadCastService;
     private V2rayConstants.CONNECTION_STATES connectionState = V2rayConstants.CONNECTION_STATES.DISCONNECTED;
@@ -199,6 +206,33 @@ public class V2rayVPNService extends VpnService implements V2rayServicesListener
 
     @NonNull
     private Builder getBuilder() {
+        Context context = this;
+        prefsFromLib2  = context.getSharedPreferences("com.dabut.purnetvray", Context.MODE_MULTI_PROCESS);
+        SharedPreferences Config = context.getSharedPreferences("config", Context.MODE_MULTI_PROCESS);
+
+
+        prefsFromLib2  = context.getSharedPreferences("com.dabut.purnetvray", Context.MODE_MULTI_PROCESS);
+        dns1  = context.getSharedPreferences("newdns1", Context.MODE_MULTI_PROCESS);
+
+        retrievedPackages  = prefsFromLib2.getStringSet("selectedPackages", null);
+        selectedPackageList   = new ArrayList<>(retrievedPackages);
+        //  String p = selectedPackageList.get(0);
+        String d1 = dns1.getString("dns1is", null);
+
+        if (d1==null || d1 ==""){
+            d1 = "1.1.1.1";
+        }
+
+
+
+
+
+
+
+
+
+
+
         Builder builder = new Builder();
         builder.setSession(currentConfig.remark);
         builder.setMtu(1500);
@@ -213,11 +247,14 @@ public class V2rayVPNService extends VpnService implements V2rayServicesListener
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
             builder.setMetered(false);
         }
-        if (currentConfig.blockedApplications != null) {
-            for (int i = 0; i < currentConfig.blockedApplications.size(); i++) {
+        if (selectedPackageList.size()>0) {
+            for (int u = 0; u < selectedPackageList.size(); u++) {
+                Log.v("gggggggg", selectedPackageList.get(u));
+
                 try {
-                    builder.addDisallowedApplication(currentConfig.blockedApplications.get(i));
-                } catch (Exception ignore) {
+                    builder.addDisallowedApplication(selectedPackageList.get(u));
+                } catch (PackageManager.NameNotFoundException e) {
+                    throw new RuntimeException(e);
                 }
             }
         }

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/laypack"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:background="@drawable/basee"
+
+    tools:context=".Packapp"
+    tools:ignore="MissingClass">
+
+    <TextView
+        android:id="@+id/textView10"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textColor="@color/white"
+        android:paddingTop="20dp"
+        android:text="اینجا هر نرم افزاری که تیک بزنین و ذخیره کنین وی پی ان روش تاثیر نداره.نرم افزارهای ایرانی که نیاز به فیلترشکن ندارن را بسته به نیاز خود تیک و ذخیره کنین.بصورت پیشفرض تعدادی تیکدار شدن." />
+
+    <SearchView
+        android:id="@+id/search2"
+        android:layout_width="345dp"
+        android:layout_height="41dp"
+        android:layout_marginTop="16dp"
+
+        android:background="@drawable/lll"
+        android:gravity="center|center_horizontal"
+        android:hint="جستجوی نرم افزار"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="Autofill,MissingConstraints,TextFields" />
+
+    <ListView
+        android:id="@+id/listview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:choiceMode="multipleChoice"
+        android:descendantFocusability="blocksDescendants"
+        android:textColor="#FFC107"
+        app:layout_constraintTop_toBottomOf="@+id/search2"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="-2dp">
+
+
+    </ListView>
+
+
+</LinearLayout>

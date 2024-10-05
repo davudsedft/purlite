@@ -14,8 +14,9 @@
         android:theme="@style/Theme.V2rayExample"
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
-
-
+        <activity
+            android:name=".Packapp"
+            android:exported="false" />
 
         <meta-data
             android:name="com.google.android.actions"
@@ -63,8 +64,6 @@
                 android:name="android.appwidget.provider"
                 android:resource="@xml/appwidg" />
         </receiver>
-
-
     </application>
 
 </manifest>

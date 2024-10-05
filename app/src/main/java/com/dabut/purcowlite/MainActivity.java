@@ -44,6 +44,7 @@ import androidx.core.content.FileProvider;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
@@ -54,8 +55,10 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.regex.Matcher;
@@ -74,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
     private Thread myt,http,httpp;
     static NotificationManager notifManager;
     private static final int PERMISSION_REQUEST_CODE = 200;
-
+    private Thread proxyThread;
     public static final String Pova = "pova";
     SharedPreferences  pova,linq;
     ImageView imgbtn;
@@ -96,6 +99,44 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         getSupportActionBar().setCustomView(R.layout.custom_toolbar);
 
+/////////////////////////خدث فهپث
+        Set<String> selectedPackages= new HashSet<>();
+
+        Context context = this;
+        SharedPreferences  prefs  = context.getSharedPreferences("com.dabut.purnetvray", Context.MODE_MULTI_PROCESS);
+
+        selectedPackages.add("com.farazpardazan.enbank");
+        selectedPackages.add("com.myirancell");
+        selectedPackages.add("ir.divar");
+
+        selectedPackages.add("ir.mci.ecareapp");
+        selectedPackages.add("com.farsitel.bazaar");
+        selectedPackages.add("ir.mservices.market");
+        selectedPackages.add("com.sibche.aspardproject.app");
+        selectedPackages.add("cab.snapp.passenger");
+        selectedPackages.add("com.zoodfood.android");
+
+
+        SharedPreferences prefs5 = getPreferences(MODE_MULTI_PROCESS);
+        boolean isFirstRun = prefs5.getBoolean("firstRun", true);
+
+        if (isFirstRun) {
+            // Your one-time code here
+
+
+
+            SharedPreferences.Editor editor7 = prefs.edit();
+            editor7.putStringSet("selectedPackages", selectedPackages);
+            editor7.apply();
+
+
+            // Mark that the code has run
+            SharedPreferences.Editor editor = prefs5.edit();
+            editor.putBoolean("firstRun", false);
+            editor.apply();
+        }
+
+/////////////////////خدثفهپث
 
 
         @SuppressLint({"MissingInflatedId", "LocalSuppress"})
@@ -296,6 +337,9 @@ public class MainActivity extends AppCompatActivity {
         if (v2rayBroadCastReceiver != null){
             unregisterReceiver(v2rayBroadCastReceiver);
         }
+        if (proxyThread != null && proxyThread.isAlive()) {
+            proxyThread.interrupt();
+        }
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -316,6 +360,12 @@ public class MainActivity extends AppCompatActivity {
         } else if (id == R.id.gith) {
             Intent browserIntent2 = new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/davudsedft/purlite/releases"));
             startActivity(browserIntent2);
+            return true;
+
+        }else if (id == R.id.splite) {
+           Intent intent = new Intent(this , Packapp.class);
+           startActivity(intent);
+           finish();
             return true;
 
         }
