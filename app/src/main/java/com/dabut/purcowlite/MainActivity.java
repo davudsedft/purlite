@@ -99,44 +99,7 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         getSupportActionBar().setCustomView(R.layout.custom_toolbar);
 
-/////////////////////////خدث فهپث
-        Set<String> selectedPackages= new HashSet<>();
 
-        Context context = this;
-        SharedPreferences  prefs  = context.getSharedPreferences("com.dabut.purnetvray", Context.MODE_MULTI_PROCESS);
-
-        selectedPackages.add("com.farazpardazan.enbank");
-        selectedPackages.add("com.myirancell");
-        selectedPackages.add("ir.divar");
-
-        selectedPackages.add("ir.mci.ecareapp");
-        selectedPackages.add("com.farsitel.bazaar");
-        selectedPackages.add("ir.mservices.market");
-        selectedPackages.add("com.sibche.aspardproject.app");
-        selectedPackages.add("cab.snapp.passenger");
-        selectedPackages.add("com.zoodfood.android");
-
-
-        SharedPreferences prefs5 = getPreferences(MODE_MULTI_PROCESS);
-        boolean isFirstRun = prefs5.getBoolean("firstRun", true);
-
-        if (isFirstRun) {
-            // Your one-time code here
-
-
-
-            SharedPreferences.Editor editor7 = prefs.edit();
-            editor7.putStringSet("selectedPackages", selectedPackages);
-            editor7.apply();
-
-
-            // Mark that the code has run
-            SharedPreferences.Editor editor = prefs5.edit();
-            editor.putBoolean("firstRun", false);
-            editor.apply();
-        }
-
-/////////////////////خدثفهپث
 
 
         @SuppressLint({"MissingInflatedId", "LocalSuppress"})
