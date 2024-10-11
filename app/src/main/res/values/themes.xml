@@ -4,6 +4,8 @@
         <item name="colorPrimary">#017EF6</item>
         <item name="android:statusBarColor">@color/gray</item>
         <item name="android:textColor">@color/white</item>
+        <item name="popupMenuStyle">@style/CustomPopupMenu</item>
+
     </style>
     <style name="OverFlow" parent="@style/Widget.AppCompat.Light.ActionButton.Overflow">
         <item name="android:src">@drawable/win</item>

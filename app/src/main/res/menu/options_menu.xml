@@ -1,22 +1,35 @@
 <!-- res/menu/options_menu.xml -->
 <menu xmlns:tools="http://schemas.android.com/tools"
     xmlns:android="http://schemas.android.com/apk/res/android"
+
     xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <item
+        android:id="@+id/memll2"
+        app:showAsAction="always"
+        android:icon="@drawable/win"
+        tools:ignore="MenuTitle">
+
+        <menu>
     <item
         android:id="@+id/tel"
         android:orderInCategory="100"
         android:icon="@drawable/tel"
+        android:title="ربات تلگرامی"
 
 
-        app:showAsAction="always"
+
+        app:showAsAction="collapseActionView"
         tools:ignore="MenuTitle" />
     <item
         android:id="@+id/gith"
         android:orderInCategory="100"
         android:icon="@drawable/gitpic"
+        android:title="گیتهاب"
 
 
-        app:showAsAction="always"
+        app:showAsAction="collapseActionView"
         tools:ignore="MenuTitle" />
 
 
@@ -26,9 +39,21 @@
         android:orderInCategory="100"
         android:icon="@drawable/sp"
 
+        android:title="تونل نرم افزارها"
 
-        app:showAsAction="always"
+        app:showAsAction="collapseActionView"
+        tools:ignore="MenuTitle" />
+    <item
+        android:id="@+id/updaate"
+        android:orderInCategory="100"
+        android:icon="@drawable/down"
+        android:title="بروزرسانی"
+
+
+        app:showAsAction="collapseActionView"
         tools:ignore="MenuTitle" />
 
 
+        </menu>
+    </item>
 </menu>
