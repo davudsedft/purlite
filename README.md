@@ -2,10 +2,13 @@
 نسخه سبک پورکاو تحت نام پورلایت.مناسب خانواده ها و کسانی که میخان درگیر تنظیمات اضافه نشن.
 این نسخه فقط دارای یک دکمه خاموش و روشن کردن هست.همچنین  خاموش  و روشن  کردن توسط دکمه نوار کشویی بالا و ویجت هم میسر هست.
 
-![purcowin](https://purnet.ir/vpn/lite2.png)
 
+<center>
+  <picture>
+   <img alt="Shows an illustrated sun in light mode and a moon with stars in dark mode." src="https://purnet.ir/vpn/lite2.png" width="200px"  >
+</picture>
 
-
+</center>
 
 برای خروجی گرفتن از کتابخانه گو
 go v 1.22
