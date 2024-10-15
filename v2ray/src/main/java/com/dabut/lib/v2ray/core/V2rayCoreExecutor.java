@@ -18,8 +18,8 @@ import com.dabut.lib.v2ray.utils.Utilities;
 import com.dabut.lib.v2ray.utils.V2rayConstants;
 import go.Seq;
 import libv2ray.Libv2ray;
-import libv2ray.V2RayPoint;
-import libv2ray.V2RayVPNServiceSupportsSet;
+import libv2ray.PurlitePoint;
+import libv2ray.PurliteVPNServiceSupportsSet;
 
 public class V2rayCoreExecutor {
 
@@ -27,7 +27,7 @@ public class V2rayCoreExecutor {
     public V2rayServicesListener v2rayServicesListener;
 
 
-    public final V2RayPoint v2RayPoint = Libv2ray.newV2RayPoint(new V2RayVPNServiceSupportsSet() {
+    public final PurlitePoint v2RayPoint = Libv2ray.newV2RayPoint(new PurliteVPNServiceSupportsSet() {
         @Override
         public long shutdown() {
             try {
@@ -170,7 +170,7 @@ public class V2rayCoreExecutor {
                     "        \"1.1.1.1\"\n" +
                     "    ]\n" +
                     "}"));
-            return Libv2ray.measureOutboundDelay(config_json.toString(), "");
+            return Libv2ray.purliteOutboundDelay(config_json.toString(), "");
         } catch (Exception json_error) {
             Log.d(V2rayCoreExecutor.class.getSimpleName(), "getCurrentServerDelay -> ", json_error);
             return -1;
