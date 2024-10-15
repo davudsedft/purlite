@@ -33,6 +33,9 @@ gomobile bind -ldflags '-s -w' -o purlite.aar -androidapi 21 -target android .
 
 
 
+سورس سرورها
+https://raw.githubusercontent.com/davudsedft/newpurnet/refs/heads/main/purkow.txt
+
 ## Credits
 - https://github.com/xtls/xray-core
 - https://github.com/2dust/AndroidLibXrayLite
