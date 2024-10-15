@@ -3,7 +3,12 @@
 این نسخه فقط دارای یک دکمه خاموش و روشن کردن هست.همچنین  خاموش  و روشن  کردن توسط دکمه نوار کشویی بالا و ویجت هم میسر هست.
 
 
+<center>
+  <picture>
+   <img alt="Shows an illustrated sun in light mode and a moon with stars in dark mode." src="https://purnet.ir/vpn/lite2.png" width="200px"  >
+</picture>
 
+</center>
 
 برای خروجی گرفتن از کتابخانه گو
 go v 1.22
@@ -27,6 +32,9 @@ gomobile init
 gomobile bind -ldflags '-s -w' -o purlite.aar -androidapi 21 -target android .
 
 
+
+سورس سرورها
+https://raw.githubusercontent.com/davudsedft/newpurnet/refs/heads/main/purkow.txt
 
 ## Credits
 - https://github.com/xtls/xray-core
