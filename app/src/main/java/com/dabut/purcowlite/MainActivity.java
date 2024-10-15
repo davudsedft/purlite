@@ -859,7 +859,7 @@ public class MainActivity extends AppCompatActivity {
                     });
                     String url2 = "https://raw.githubusercontent.com/davudsedft/newpurnet/main/porcowlite.txt";
 
-
+//
 
                     if (isLinkValid(url2)) {
                         System.out.println("لینک معتبر است.");
