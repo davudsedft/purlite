@@ -36,6 +36,29 @@ gomobile bind -ldflags '-s -w' -o purlite.aar -androidapi 21 -target android .
 سورس سرورها
 https://raw.githubusercontent.com/davudsedft/newpurnet/refs/heads/main/purkow.txt
 
+
+طریقه ساخت apk
+وارد پوشه root  پروژه شده و در cmd دستور 
+cd /purlite/
+
+gradlew assembleDebug
+
+و در لینوکس در ترمینال 
+./gradlew assembleDebug
+
+خروجی در پوشه 
+app/build/outputs/apk/release
+
+
+
+برای نسخه ریلیس باید در گریدل مشخصات keystore خودتون و وارد فایل گریدل کنین یا نسخه ریلیس را از همینجا دانلود کنین
+
+
+gradlew assembleRelease
+
+
+
+
 ## Credits
 - https://github.com/xtls/xray-core
 - https://github.com/2dust/AndroidLibXrayLite
