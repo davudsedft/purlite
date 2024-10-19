@@ -1,4 +1,4 @@
-name: Create Release
+name: Android Release
 
 on:
   push:
@@ -49,7 +49,7 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.PAT_GITHUB }}  # استفاده از توکن PAT
       with:
-        tag_name: ${{ github.ref }}
+        tag_name: ${{ github.ref_name }}  # تغییر به استفاده از نام تگ
         release_name: purlite v2.2
         draft: false
         prerelease: false
