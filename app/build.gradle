@@ -14,18 +14,10 @@ android {
         versionName "2.1"
         setProperty("archivesBaseName", rootProject.name + "-" + versionName)
     }
- signingConfigs {
-            release {
-                keyAlias 'david'
-                keyPassword '123456'
-                storeFile file('C:/Users/purcow/Music/mykey.jks')
-                storePassword '123456'
-            }
-        }
+
     buildTypes {
         release {
 
-        signingConfig signingConfigs.release
           minifyEnabled false
 
 
