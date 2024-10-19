@@ -1,0 +1,47 @@
+name: Android Release
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Set up JDK 17
+      uses: actions/setup-java@v4
+      with:
+        distribution: 'temurin'  # یا 'zulu', 'adopt' بسته به نیاز
+        java-version: '17'
+
+    - name: Decrypt Keystore
+      run: echo "${{ secrets.KEYSTORE }}" | base64 --decode > $GITHUB_WORKSPACE/my-release-key.jks
+
+    - name: Set up Gradle
+      uses: gradle/gradle-build-action@v2
+      with:
+        gradle-version: '8.5'
+
+    - name: Make gradlew executable
+      run: chmod +x ./gradlew
+
+    - name: Build with Gradle
+      env:
+        KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
+        KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
+        STORE_PASSWORD: ${{ secrets.STORE_PASSWORD }}
+      run: |
+        ./gradlew assembleRelease -Pandroid.injected.signing.store.file=$GITHUB_WORKSPACE/my-release-key.jks -Pandroid.injected.signing.store.password=${{ secrets.STORE_PASSWORD }} -Pandroid.injected.signing.key.alias=${{ secrets.KEY_ALIAS }} -Pandroid.injected.signing.key.password=${{ secrets.KEY_PASSWORD }}
+
+    - name: Upload APK
+      uses: actions/upload-artifact@v4
+      with:
+        name: app-release.apk
+        path: app/build/outputs/apk/release/app-release.apk
