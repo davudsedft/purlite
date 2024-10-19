@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
 
     permissions:
-      contents: write  # اضافه کردن  نوشتن
+      contents: write
 
     steps:
     - name: Checkout code
@@ -31,9 +31,6 @@ jobs:
     - name: Make gradlew executable
       run: chmod +x ./gradlew
 
-    - name: Install jq
-      run: sudo apt-get install -y jq
-
     - name: Build with Gradle
       run: ./gradlew assembleRelease
 
@@ -47,25 +44,22 @@ jobs:
         path: app/build/outputs/apk/release/app-release.apk
 
     - name: Create GitHub Release
-      run: |
-        curl -X POST \
-          -H "Authorization: token ${{ secrets.PAT_GITHUB }}" \
-          -H "Content-Type: application/json" \
-          -d '{
-            "tag_name": "${{ github.ref_name }}",
-            "target_commitish": "main",
-            "name": "Release ${{ github.ref_name }}",
-            "body": "Description of the release",
-            "draft": false,
-            "prerelease": false
-          }' \
-          https://api.github.com/repos/davudsedft/purlite/releases
+      id: create_release
+      uses: actions/create-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GH_PAT }}  # استفاده از توکن PAT جدید
+      with:
+        tag_name: ${{ github.ref_name }}
+        release_name: new-purlite v3.3
+        draft: false
+        prerelease: false
 
     - name: Upload Release Asset
-      run: |
-        release_id=$(curl -H "Authorization: token ${{ secrets.PAT_GITHUB }}" https://api.github.com/repos/davudsedft/purlite/releases/tags/${{ github.ref_name }} | jq -r '.id')
-        curl -X POST \
-          -H "Authorization: token ${{ secrets.PAT_GITHUB }}" \
-          -H "Content-Type: application/vnd.android.package-archive" \
-          --data-binary @app/build/outputs/apk/release/app-release.apk \
-          https://uploads.github.com/repos/davudsedft/purlite/releases/$release_id/assets?name=app-release.apk
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GH_PAT }}  # استفاده از توکن PAT جدید
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: app/build/outputs/apk/release/app-release.apk
+        asset_name: app-release.apk
+        asset_content_type: application/vnd.android.package-archive
