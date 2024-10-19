@@ -34,9 +34,6 @@ jobs:
     - name: Make gradlew executable
       run: chmod +x ./gradlew
 
-    - name: Create build directories
-      run: mkdir -p app/build/outputs/apk/release
-
     - name: Build with Gradle
       run: ./gradlew assembleRelease
 
