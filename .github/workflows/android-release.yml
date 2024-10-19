@@ -2,9 +2,8 @@ name: Android Release
 
 on:
   push:
-    branches:
-      - main
-  pull_request:
+    tags:
+      - 'v*.*'
 
 jobs:
   build:
