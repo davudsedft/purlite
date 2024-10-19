@@ -1,4 +1,4 @@
-name: Android Release
+name: Android Debug Build
 
 on:
   push:
@@ -21,9 +21,6 @@ jobs:
         distribution: 'temurin'
         java-version: '17'
 
-    - name: Decrypt Keystore
-      run: echo "${{ secrets.KEYSTORE }}" | base64 --decode > $GITHUB_WORKSPACE/my-release-key.jks
-
     - name: Set up Gradle
       uses: gradle/gradle-build-action@v2
       with:
@@ -33,10 +30,10 @@ jobs:
       run: chmod +x ./gradlew
 
     - name: Build with Gradle
-      run: ./gradlew assembleRelease
+      run: ./gradlew assembleDebug
 
     - name: Upload APK
       uses: actions/upload-artifact@v4
       with:
-        name: app-release.apk
-        path: app/build/outputs/apk/release/app-release.apk
+        name: app-debug.apk
+        path: app/build/outputs/apk/debug/app-debug.apk
