@@ -1,6 +1,5 @@
 name: Android Release
 
-
 on:
   push:
     tags:
@@ -28,8 +27,7 @@ jobs:
       uses: gradle/gradle-build-action@v2
       with:
         gradle-version: '8.7'
-    - name: Install jq
-     run: sudo apt-get install jq
+
     - name: Make gradlew executable
       run: chmod +x ./gradlew
 
@@ -58,7 +56,7 @@ jobs:
             "draft": false,
             "prerelease": false
           }' \
-          https://api.github.com/repos/<OWNER>/<REPO>/releases
+          https://api.github.com/repos/davudsedft/purlite/releases
 
     - name: Upload Release Asset
       run: |
