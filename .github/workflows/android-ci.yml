@@ -22,7 +22,7 @@ jobs:
         java-version: '17'
 
     - name: Decrypt Keystore
-      run: echo "${{ secrets.KEYSTORE }}" | base64 --decode > my-release-key.jks
+      run: echo "${{ secrets.KEYSTORE }}" | base64 --decode > $GITHUB_WORKSPACE/my-release-key.jks
 
     - name: Set up Gradle
       uses: gradle/gradle-build-action@v2
@@ -38,7 +38,7 @@ jobs:
         KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
         STORE_PASSWORD: ${{ secrets.STORE_PASSWORD }}
       run: |
-        ./gradlew assembleRelease -Pandroid.injected.signing.store.file=my-release-key.jks -Pandroid.injected.signing.store.password=${{ secrets.STORE_PASSWORD }} -Pandroid.injected.signing.key.alias=${{ secrets.KEY_ALIAS }} -Pandroid.injected.signing.key.password=${{ secrets.KEY_PASSWORD }}
+        ./gradlew assembleRelease -Pandroid.injected.signing.store.file=$GITHUB_WORKSPACE/my-release-key.jks -Pandroid.injected.signing.store.password=${{ secrets.STORE_PASSWORD }} -Pandroid.injected.signing.key.alias=${{ secrets.KEY_ALIAS }} -Pandroid.injected.signing.key.password=${{ secrets.KEY_PASSWORD }}
 
     - name: Upload APK
       uses: actions/upload-artifact@v4
