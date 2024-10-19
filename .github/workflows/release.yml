@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
 
     permissions:
-      contents: write  # اضافه کردن دسترسی نوشتن
+      contents: write  # اضافه کردن  نوشتن
 
     steps:
     - name: Checkout code
