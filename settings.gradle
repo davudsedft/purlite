@@ -19,4 +19,3 @@ dependencyResolutionManagement {
 rootProject.name = "purlite"
 include ':app'
 include ':v2ray'
-//

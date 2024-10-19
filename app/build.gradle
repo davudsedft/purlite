@@ -14,15 +14,31 @@ android {
         versionName "2.1"
         setProperty("archivesBaseName", rootProject.name + "-" + versionName)
     }
-
+ signingConfigs {
+            release {
+                keyAlias 'david'
+                keyPassword '123456'
+                storeFile file('C:/Users/purcow/Music/mykey.jks')
+                storePassword '123456'
+            }
+        }
     buildTypes {
         release {
 
+        signingConfig signingConfigs.release
           minifyEnabled false
 
 
 
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+
+            // مسیر خروجی فایل APK
+            applicationVariants.all { variant ->
+                variant.outputs.all {
+                    outputFileName = "app-release.apk"
+                }
+            }
+
         }
     }
     buildFeatures {
