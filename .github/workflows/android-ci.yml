@@ -29,6 +29,9 @@ jobs:
       with:
         gradle-version: '8.5'  # از نسخه 8.5 استفاده کنید
 
+    - name: Make gradlew executable
+      run: chmod +x ./gradlew
+
     - name: Build with Gradle
       env:
         KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
