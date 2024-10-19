@@ -11,16 +11,23 @@ android {
         minSdk 21
         targetSdk 34
         versionCode 11
-        versionName "2.0"
+        versionName "2.2"
         setProperty("archivesBaseName", rootProject.name + "-" + versionName)
     }
-
+ signingConfigs {
+            release {
+                keyAlias 'david'
+                keyPassword '123456'
+                storeFile file('C:/Users/purcow/Music/mykey.jks')
+                storePassword '123456'
+            }
+        }
     buildTypes {
         release {
 
-            debuggable false
-            minifyEnabled true
-            shrinkResources true
+        signingConfig signingConfigs.release
+          minifyEnabled false
+
 
 
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
