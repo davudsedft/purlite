@@ -24,11 +24,7 @@ jobs:
     - name: Decrypt Keystore
       run: echo "${{ secrets.KEYSTORE }}" | base64 --decode > $GITHUB_WORKSPACE/my-release-key.jks
 
-    - name: Set up Gradle
-      uses: gradle/gradle-build-action@v2
-      with:
-        gradle-version: '8.5'
-
+   
     - name: Make gradlew executable
       run: chmod +x ./gradlew
 
