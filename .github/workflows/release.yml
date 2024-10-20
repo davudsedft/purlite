@@ -23,6 +23,9 @@ jobs:
         distribution: 'temurin'
         java-version: '17'
 
+    - name: Decrypt Keystore
+      run: echo "${{ secrets.KEYSTORE }}" | base64 --decode > $GITHUB_WORKSPACE/my-release-key.jks
+
     - name: Set up Gradle
       uses: gradle/gradle-build-action@v2
       with:
@@ -32,7 +35,11 @@ jobs:
       run: chmod +x ./gradlew
 
     - name: Build with Gradle
-      run: ./gradlew assembleRelease
+      env:
+        KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
+        KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
+        STORE_PASSWORD: ${{ secrets.STORE_PASSWORD }}
+      run: ./gradlew assembleRelease -Pandroid.injected.signing.store.file=$GITHUB_WORKSPACE/my-release-key.jks -Pandroid.injected.signing.store.password=${{ secrets.STORE_PASSWORD }} -Pandroid.injected.signing.key.alias=${{ secrets.KEY_ALIAS }} -Pandroid.injected.signing.key.password=${{ secrets.KEY_PASSWORD }}
 
     - name: List files
       run: ls -R app/build/outputs/apk/
