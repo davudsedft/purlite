@@ -3,6 +3,8 @@ package com.dabut.purcowlite;
 import static com.dabut.lib.v2ray.utils.V2rayConstants.SERVICE_CONNECTION_STATE_BROADCAST_EXTRA;
 import static com.dabut.lib.v2ray.utils.V2rayConstants.V2RAY_SERVICE_STATICS_BROADCAST_INTENT;
 
+import static java.lang.Thread.*;
+
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.ActionBar;
@@ -102,14 +104,14 @@ public class MainActivity extends AppCompatActivity {
     private Thread proxyThread;
     public static final String Pova = "pova";
     SharedPreferences  pova,linq;
-    ImageView imgbtn;
     private ProgressDialog progressDialog;
+    Button vpnon;
 
     ProgressDialog updial,updial2;
     AlertDialog.Builder dialogBuilder3,dialogBuilder4,alertDialogBuilder2;
 
     String utext3,utext2,utext;
-    private TextView  connected_server_delay,contextt,txtbtn,version;
+    private TextView  connected_server_delay,contextt,version;
     private EditText v2ray_config;
     private SharedPreferences sharedPreferences;
     private BroadcastReceiver v2rayBroadCastReceiver;
@@ -179,10 +181,6 @@ public class MainActivity extends AppCompatActivity {
         rQueue.add(request);
 
 
-        @SuppressLint({"MissingInflatedId", "LocalSuppress"})
-        CardView cardView = (CardView) findViewById(R.id.vpnBtn);
-        txtbtn = (TextView) findViewById(R.id.txtbtn);
-        imgbtn = (ImageView) findViewById(R.id.imgbtn);
 
         ActivityResultLauncher<Intent> activityResultLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
             if (result.getResultCode() != Activity.RESULT_OK) {
@@ -221,21 +219,21 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-
+        vpnon = findViewById(R.id.btnToggle);
 
         // initialize shared preferences for save or reload default config
         // reload previous config to edit text
-        cardView.setOnClickListener(view -> {
+        vpnon.setOnClickListener(view -> {
             if (V2rayController.getConnectionState() == V2rayConstants.CONNECTION_STATES.DISCONNECTED) {
 
-
+//String t = "vless://635ffc16-45cc-4716-bdef-2486398240a3@iranshopnetwork.purtuf.ir:2096?path=%2F&security=tls&encryption=none&alpn=http/1.1&host=iranshopnetwork.purtuf.ir&fp=chrome&type=ws&sni=iranshopnetwork.purtuf.ir#nahidv4-vipnahid";
 
 
                 if (contextt.getText().equals(" متصل نیست") || contextt.getText().toString().contains("مجدد") || contextt.getText().toString().contains("خطا") ){
-                    imgbtn.setBackgroundResource(R.drawable.yellow);
-                    txtbtn.setText("...");
-                    txtbtn.setTextColor(Color.YELLOW);
 
+
+                    connecting();
+                   // V2rayController.startV2ray(MainActivity.this, "Server", t, null);
 
                     cont();
                 }else {
@@ -284,19 +282,16 @@ public class MainActivity extends AppCompatActivity {
         // Check connection state when activity launch
         switch (V2rayController.getConnectionState()) {
             case CONNECTED:
-                txtbtn.setText("ON");
                 contextt.setText("متصل شد");
-
-                txtbtn.setTextColor(Color.GREEN);
-                imgbtn.setBackgroundResource(R.drawable.kkk);
+                setConnected();
 
                 break;
             case DISCONNECTED:
-                txtbtn.setText("OFF");
                 contextt.setText(" متصل نیست");
                 contextt.setTextColor(Color.RED);
 
-                txtbtn.setTextColor(Color.rgb(219, 102, 200));
+
+                setDisconnected();
 
                 break;
             case CONNECTING:
@@ -314,11 +309,8 @@ public class MainActivity extends AppCompatActivity {
                 runOnUiThread(() -> {
                     switch ((V2rayConstants.CONNECTION_STATES) Objects.requireNonNull(intent.getExtras().getSerializable(SERVICE_CONNECTION_STATE_BROADCAST_EXTRA))) {
                         case CONNECTED:
-                            txtbtn.setTextColor(Color.GREEN);
 
-                            txtbtn.setText("ON");
-                            imgbtn.setBackgroundResource(R.drawable.kkk);
-
+        setConnected();
                             contextt.setText("متصل شد");
 
                             contextt.setTextColor(Color.GREEN);
@@ -329,14 +321,12 @@ public class MainActivity extends AppCompatActivity {
 
                             break;
                         case DISCONNECTED:
-                            txtbtn.setText("OFF");
                             contextt.setText(" متصل نیست");
                             contextt.setTextColor(Color.RED);
 
-                            //  connection.setBackgroundColor("");
-                            imgbtn.setBackgroundResource(R.drawable.circle);
-                            txtbtn.setTextColor(Color.rgb(219, 102, 200));
-                            //  simpleNotification();
+
+
+                            setDisconnected();
                             break;
                         case CONNECTING:
                             break;
@@ -353,7 +343,19 @@ public class MainActivity extends AppCompatActivity {
             registerReceiver(v2rayBroadCastReceiver, new IntentFilter(V2RAY_SERVICE_STATICS_BROADCAST_INTENT));
         }
     }
+    private void setDisconnected() {
+        vpnon.setBackground(getResources().getDrawable(R.drawable.circle_button));
+        vpnon.setText("OFF");
+    }
 
+    private void setConnected() {
+        vpnon.setBackground(getResources().getDrawable(R.drawable.circle_button_on));
+        vpnon.setText("ON");
+    }
+    private void connecting() {
+        vpnon.setBackground(getResources().getDrawable(R.drawable.circle_button_connecting));
+        vpnon.setText("....");
+    }
     public static String getDefaultConfig() {
         return "";
     }
@@ -463,7 +465,7 @@ public class MainActivity extends AppCompatActivity {
                 System.out.println("ثطثزعفثق۲ قعددد ");
                 try {
 
-                    Thread.sleep(3000);
+                    sleep(3000);
 
 
                     String   selectedText= vmessLinks.get(finalJ);
@@ -1065,7 +1067,7 @@ public class MainActivity extends AppCompatActivity {
                 while (true) {
                     System.out.println("10 seccccc");
                     try {
-                        Thread.sleep(10000); // تاخیر ۱۰ ثانیه
+                        sleep(10000); // تاخیر ۱۰ ثانیه
                         // اجرای عملیات مورد نظر
                         if (pingrun.size()>0){
                             if (executor.isTerminated()){
@@ -1075,9 +1077,19 @@ public class MainActivity extends AppCompatActivity {
                                     public void run() {
                                         contextt.setTextColor(Color.GREEN);
                                         contextt.setText("مجدد متصل شو");
-                                        V2rayController.startV2ray(MainActivity.this, "Test Server", pova.getString(Pova,""), null);
+                                        try {
+                                            sleep(2000);
+                                        } catch (InterruptedException e) {
+                                            throw new RuntimeException(e);
+                                        }
+        String yy = pingrun.get(0).getName();
+
+                                        Log.v("tyyyyyyyyyyyyyyyy",yy);
+                                        V2rayController.startV2ray(MainActivity.this, "Test Server", yy, null);
 
                                     }
+
+
                                 });
                                 myt.interrupt();
                             }
@@ -1092,7 +1104,7 @@ public class MainActivity extends AppCompatActivity {
                                     @Override
                                     public void run() {
                                         contextt.setTextColor(Color.RED);
-                                        contextt.setText("مجدد متصل شو");
+                                        contextt.setText("خطا در اتصال");
 
                                     }
                                 });
@@ -1111,6 +1123,18 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         myt.start();
+    }
+
+    private void lasstrun() {
+
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                V2rayController.startV2ray(MainActivity.this, "Test Server", pova.getString(Pova,""), null);
+
+            }
+        });
     }
 
     public int longToIntJavaWithMath(long number) {
