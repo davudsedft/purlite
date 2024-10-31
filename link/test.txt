@@ -1,1 +1,1 @@
-https://raw.githubusercontent.com/davudsedft/newpurnet/main/test2.txt
+https://raw.githubusercontent.com/davudsedft/purlite/refs/heads/main/link/test2.txt
