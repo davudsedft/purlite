@@ -1,1 +1,2 @@
-
+vless://7dfcc982-c8de-43d5-9c8d-6546551a35c9@server6.ahwaz-game.ir:35674?security=none&encryption=none&host=fast.com&headerType=http&type=tcp#app-wa7t0kga
+vless://7dfcc982-c8de-43d5-9c8d-6546551a35c9@server6.ahwaz-game.ir:35674?security=none&encryption=none&host=fast.com&headerType=http&type=tcp#app-wa7t0kga
