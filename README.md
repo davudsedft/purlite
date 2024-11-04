@@ -33,9 +33,6 @@ gomobile bind -ldflags '-s -w' -o purlite.aar -androidapi 21 -target android .
 
 
 
-سورس سرورها
-https://raw.githubusercontent.com/davudsedft/newpurnet/refs/heads/main/purkow.txt
-
 
 طریقه ساخت apk
 وارد پوشه root  پروژه شده و در cmd دستور 
