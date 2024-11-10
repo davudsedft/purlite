@@ -12,24 +12,34 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:layout_weight="0"
         android:gravity="center"
         android:orientation="horizontal"
-        android:weightSum="10">
+        android:weightSum="3">
 
         <ImageView
             android:id="@+id/imgIcon"
             android:layout_width="40dp"
-            android:layout_height="40dp" />
+            android:layout_height="40dp"
+            android:layout_weight="0" />
 
-        <CheckedTextView
+        <TextView
             android:id="@+id/check"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:checkMark="?android:attr/listChoiceIndicatorMultiple"
-            android:gravity="right|center_vertical"
-            android:textAppearance="?android:attr/textAppearanceListItemSmall"
+            android:layout_weight="3"
+            android:gravity="center|center_horizontal|center_vertical"
             android:textColor="@color/red"
-            android:textSize="10sp" />
+            android:textSize="12sp" />
+
+        <ImageView
+            android:id="@+id/mg22222"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_weight="0"
+
+
+            />
 
     </LinearLayout>
 

@@ -1,0 +1,54 @@
+<resources>
+    <string name="app_name">PurLite</string>
+    <string name="zaban">Change language(فا)</string>
+    <string name="enseraf">cancel</string>
+    <string name="stay">Stay here</string>
+    <string name="notset">Not set</string>
+    <string name="khata">Error</string>
+    <string name="sabt">Save changes</string>
+    <string name="save">Save</string>
+    <string name="doyoudo">What do you want to do</string>
+    <string name="daryaft">Reciving</string>
+
+    <string name="notconnect">"Not connect"</string>
+    <string name="retry">Retry</string>
+
+    <string name="wait">Waiting</string>
+
+    <string name="testing">Testing</string>
+    <string name="ping">Ping:</string>
+    <string name="ebteda">Connect first</string>
+    <string name="connected">Connected</string>
+    <string name="servertest">Testing servers ...</string>
+    <string name="selectserver">Selecting server ...</string>
+    <string name="update">Update</string>
+    <string name="dastras">New Update Found</string>
+    <string name="Dwnload">Download</string>
+    <string name="tabrik">Great</string>
+    <string name="beruz">You are updated</string>
+
+    <string name="connecting">Connecting</string>
+    <string name="makhzan">Connected to Repository</string>
+
+    <string name="barresi">Checking servers</string>
+    <string name="khatad">Error receving</string>
+    <string name="moj">Connect Retry</string>
+    <string name="khatta">Connection Error</string>
+    <string name="github">Github</string>
+    <string name="Splite">Splite vpn</string>
+
+    <string name="pay">Developer Support</string>
+    <string name="lang">Change language</string>
+    <string name="testserver">Server Test</string>
+    <string name="robat">Telegram bot</string>
+    <string name="stayhere">Stay here to installer show..</string>
+    <string name="exit">Press back again</string>
+    <string name="beruzzz">not updated :</string>
+    <string name="isberuz">Is updated :</string>
+    <string name="check">Check update</string>
+    <string name="searchapp">Search app</string>
+    <string name="whyapp">Here, any software that you tick and save will not affect the VPN of that method. Tick and save the software that do not need a filter breaker according to your needs. It will be ticked as a new default.</string>
+    <string name="sabr">   please wait....</string>
+    <string name="badan">later</string>
+
+</resources>

@@ -13,6 +13,8 @@ import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -86,7 +88,8 @@ ProgressDialog updial;
         getSupportActionBar().setCustomView(R.layout.custom_toolbar);
 
         updial= new ProgressDialog(this,R.style.MyDialogStyle);
-
+        updial.setMessage(getString(R.string.daryaft));
+        updial.show();
 
         Context context = this;
         prefs  = context.getSharedPreferences("com.dabut.purnetvray", Context.MODE_MULTI_PROCESS);
@@ -104,6 +107,7 @@ ProgressDialog updial;
         applist = new ArrayList<AppInfo>();
         applist2 = new ArrayList<AppInfo>();
         applist3 = new ArrayList<AppInfo>();
+        selectedPackages5   = new HashSet<>();
 
     prefs = getSharedPreferences("com.dabut.purnetvray", Context.MODE_MULTI_PROCESS);
     iconList   = new ArrayList<>();
@@ -130,86 +134,106 @@ ProgressDialog updial;
 //
 //        applist.addAll(applist2);
 
+        listView = findViewById(R.id.listview);
+
+new Thread(new Runnable() {
+    @Override
+    public void run() {
 
 
-try {
-    if (selectedPackageList.size() >0){
+
+        try {
+            if (selectedPackageList.size() >0){
+
+
+                for (ApplicationInfo appInfo2 : installedApps) {
+
+                    String m = appInfo2.sourceDir;
+                    if (m.startsWith("/data/app")&& packageManager.getLaunchIntentForPackage(appInfo2.packageName) != null) {
+                        if (selectedPackageList.contains(appInfo2.packageName)) {
+                            try {
+
+                                appIcon = getPackageManager().getApplicationIcon(appInfo2.packageName);
+
+                                //  packageNames.add(appInfo2.packageName);
+                                applist2.add(new AppInfo(appIcon,appInfo2.loadLabel(packageManager).toString(), appInfo2.packageName,  true));
+                            } catch (PackageManager.NameNotFoundException e) {
+                                throw new RuntimeException(e);
+                            }
+                        }
+                    }
+                }
+
+
+
+            }
+
+
+
+            for (ApplicationInfo appInfo : installedApps) {
+                String m = appInfo.sourceDir;
+                if (selectedPackageList.contains(appInfo.packageName)) {
+                    continue;
+
+                }
+
+                packageNames2.add(appInfo.loadLabel(packageManager).toString());
+
+                packageNames.add(appInfo.packageName);
+            }
+
+        }catch (Exception e){
+
+        }
+
+
+
 
 
         for (ApplicationInfo appInfo2 : installedApps) {
 
             String m = appInfo2.sourceDir;
-            if (m.startsWith("/data/app")&& packageManager.getLaunchIntentForPackage(appInfo2.packageName) != null) {
-                if (selectedPackageList.contains(appInfo2.packageName)) {
-                    try {
+            if (m.startsWith("/data/app")&& packageManager.getLaunchIntentForPackage(appInfo2.packageName) != null){
+                try {
 
-                        appIcon = getPackageManager().getApplicationIcon(appInfo2.packageName);
+                    appIcon = getPackageManager().getApplicationIcon(appInfo2.packageName);
+                    packageNames.add(appInfo2.packageName);
 
-                        //  packageNames.add(appInfo2.packageName);
-                        applist2.add(new AppInfo(appIcon,appInfo2.loadLabel(packageManager).toString(), appInfo2.packageName,  true));
-                    } catch (PackageManager.NameNotFoundException e) {
-                        throw new RuntimeException(e);
+                    if (selectedPackageList.contains(appInfo2.packageName)){
+                        continue;
                     }
-                }
-            }
-        }
+
+                    applist.add(new AppInfo(appIcon,appInfo2.loadLabel(packageManager).toString(), appInfo2.packageName,  false));
 
 
 
-    }
-
-
-
-    for (ApplicationInfo appInfo : installedApps) {
-        String m = appInfo.sourceDir;
-        if (selectedPackageList.contains(appInfo.packageName)) {
-            continue;
-
-        }
-
-        packageNames2.add(appInfo.loadLabel(packageManager).toString());
-
-        packageNames.add(appInfo.packageName);
-    }
-
-}catch (Exception e){
-
-}
-
-
-
-
-
-    for (ApplicationInfo appInfo2 : installedApps) {
-
-        String m = appInfo2.sourceDir;
-        if (m.startsWith("/data/app")&& packageManager.getLaunchIntentForPackage(appInfo2.packageName) != null){
-            try {
-
-                appIcon = getPackageManager().getApplicationIcon(appInfo2.packageName);
-                packageNames.add(appInfo2.packageName);
-
-                if (selectedPackageList.contains(appInfo2.packageName)){
-                continue;
+                } catch (PackageManager.NameNotFoundException e) {
+                    throw new RuntimeException(e);
                 }
 
-                applist.add(new AppInfo(appIcon,appInfo2.loadLabel(packageManager).toString(), appInfo2.packageName,  false));
-
-
-
-            } catch (PackageManager.NameNotFoundException e) {
-                throw new RuntimeException(e);
             }
+
+
 
         }
 
 
+        applist.addAll(0,applist2);
+
+     runOnUiThread(new Runnable() {
+         @Override
+         public void run() {
+
+             listView = findViewById(R.id.listview);
+             adapter = new AppListAdapter(Packapp.this, R.layout.listview_item_row, applist);
+             listView.setAdapter(adapter);
+             updial.dismiss();
+
+         }
+     });
 
     }
-
-
-   applist.addAll(0,applist2);
-
+}).start();
 
 
 
@@ -245,18 +269,7 @@ try {
 //        }
 
 
-        updial.setMessage("در حال دریافت");
-        updial.show();
-         listView = findViewById(R.id.listview);
 
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                adapter = new AppListAdapter(Packapp.this, R.layout.listview_item_row, applist);
-                listView.setAdapter(adapter);
-                updial.dismiss();
-            }
-        }, 500);
 
 //
 //        adapter  = new CustomAdapter(this, appList);
@@ -314,7 +327,6 @@ try {
 
 
 
-        selectedPackages5   = new HashSet<>();
 
 
 
@@ -357,38 +369,39 @@ try {
      // listView.setAdapter(adapter);
        // listView.setAdapter(adapter2);
         // Display the app names in the ListView
-         searchView = findViewById(R.id.search2);
-      Check();
+        EditText editText = findViewById(R.id.search2);
 
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+        editText.addTextChangedListener(new TextWatcher() {
             @Override
-            public boolean onQueryTextSubmit(String query) {
-              //  adapter.getFilter().filter(query);
-                return true;
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                // هیچ کاری لازم نیست انجام دهید
             }
 
             @Override
-            public boolean onQueryTextChange(String newText) {
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                // تغییر داده‌های لیست بر اساس متن جستجو
                 for (int i = 0; i < listView.getCount(); i++) {
                     AppInfo appInfo = applist.get(i);
 
                     if (appInfo.check) {
                         String g = appInfo.name;
-
                         selectedPackages5.add(g);
                     }
                 }
 
-             filterData(newText);
-              //  bbb = false;
-            //  adapter.getFilter().filter(newText);
+                filterData(s.toString());
+                //  bbb = false;
+                //  adapter.getFilter().filter(s.toString());
+            }
 
-
-                // تغییر داده‌های لیست بر اساس متن جستجو
-              // به‌روزرسانی لیست ویو
-                return true;
+            @Override
+            public void afterTextChanged(Editable s) {
+                // هیچ کاری لازم نیست انجام دهید
             }
         });
+
+        Check();
+
 
 
 
@@ -459,7 +472,7 @@ try {
 
 
 
-    @SuppressLint("MissingSuperCall")
+    @SuppressLint({"MissingSuperCall", "SuspiciousIndentation"})
     @Override
     public void onBackPressed() {
 
@@ -477,9 +490,9 @@ try {
             // set dialog message
             alertDialogBuilder
                     .setIcon(R.drawable.ic_launcher)
-                    .setMessage("چه کاری انجام میدی؟")
+                    .setMessage(getString(R.string.doyoudo))
                     .setCancelable(true)
-                    .setPositiveButton("ذخیره کردن", new DialogInterface.OnClickListener() {
+                    .setPositiveButton(getString(R.string.save), new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
 
 
@@ -510,7 +523,7 @@ try {
                             editor.putStringSet("selectedPackages", selectedPackages2);
                             editor.apply();
 
-                            Toast.makeText(Packapp.this, "ثبت تغییرات", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(Packapp.this, getString(R.string.sabt), Toast.LENGTH_SHORT).show();
                             Intent intent = new Intent(Packapp.this , MainActivity.class);
                             startActivity(intent);
                             finish();
@@ -526,7 +539,7 @@ try {
 
 
                         }
-                    }).setNegativeButton("ماندن همین صفحه", new DialogInterface.OnClickListener() {
+                    }).setNegativeButton(getString(R.string.stay), new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
                             // if this button is clicked, close
                             // current activity
@@ -535,10 +548,10 @@ try {
 
 
                         }
-                    }).setNeutralButton("انصراف", new DialogInterface.OnClickListener() {
+                    }).setNeutralButton(getString(R.string.enseraf), new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
-                            Toast.makeText(Packapp.this, "منصرف شدید", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(Packapp.this, getString(R.string.notset), Toast.LENGTH_SHORT).show();
                             Intent intent = new Intent(Packapp.this , MainActivity.class);
                             startActivity(intent);
                             finish();

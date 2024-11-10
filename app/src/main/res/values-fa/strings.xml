@@ -1,13 +1,14 @@
 <resources>
     <string name="app_name">PurLite</string>
     <string name="zaban">(EN)تغییر زبان</string>
+
     <string name="enseraf">انصراف</string>
     <string name="stay">ماندن همین صفحه</string>
     <string name="notset">منصرف شدید</string>
     <string name="khata">خطا رخ داد</string>
     <string name="sabt">ثبت تغییرات</string>
-    <string name="save">ذخیره</string>
     <string name="doyoudo">چه کاری انجام میدی؟</string>
+    <string name="save">ذخیره</string>
     <string name="daryaft">در حال دریافت</string>
     <string name="notconnect">" متصل نیست"</string>
     <string name="retry">مجدد</string>
@@ -28,9 +29,12 @@
     <string name="barresi">در حال بررسی سرور ها</string>
     <string name="khatad">خطا در دریافت</string>
     <string name="moj">مجدد متصل شو</string>
+
     <string name="khatta">خطا در اتصال</string>
-    <string name="github">گیت هاب</string>
     <string name="Splite">تونل نرم افزارها</string>
+
+
+    <string name="github">گیت هاب</string>
     <string name="pay">حمایت از توسعه دهنده</string>
     <string name="lang">تغییر زبان</string>
     <string name="testserver">تست سرور</string>

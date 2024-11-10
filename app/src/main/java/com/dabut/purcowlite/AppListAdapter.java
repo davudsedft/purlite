@@ -36,6 +36,7 @@ public class AppListAdapter extends ArrayAdapter<AppInfo> {
             holder.imgIcon = row.findViewById(R.id.imgIcon);
             holder.txtText = row.findViewById(R.id.check);
             holder.textView = row.findViewById(R.id.textView7);
+            holder.mg22222 = row.findViewById(R.id.mg22222);
 
             row.setTag(holder);
         } else {
@@ -45,7 +46,13 @@ public class AppListAdapter extends ArrayAdapter<AppInfo> {
         AppInfo appInfo = data.get(position);
         holder.txtText.setText(appInfo.fam);
         holder.imgIcon.setImageDrawable(appInfo.icon);
-        holder.txtText.setChecked(appInfo.check);
+        if (appInfo.check){
+            holder.mg22222.setBackgroundResource(R.drawable.checkin);
+
+        }else{
+            holder.mg22222.setBackgroundResource(R.drawable.checkoff);
+
+        }
         holder.textView.setText(appInfo.name);
 
 
@@ -54,8 +61,10 @@ public class AppListAdapter extends ArrayAdapter<AppInfo> {
 
     static class AppInfoHolder {
         ImageView imgIcon;
-        CheckedTextView txtText;
+        TextView txtText;
         TextView textView;
+        ImageView mg22222;
+
 
 
     }

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_layout"
@@ -11,47 +11,82 @@
     android:orientation="vertical"
     tools:context=".MainActivity">
 
-    <Button
-        android:id="@+id/btnToggle"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:layout_centerInParent="true"
-        android:background="@drawable/circle_button"
-        android:gravity="center"
-        android:text="OFF"
-        android:textColor="@color/white"
-        android:textSize="20sp" />
-
-    <TextView
-        android:id="@+id/core_version"
+    <androidx.drawerlayout.widget.DrawerLayout
+        android:id="@+id/dl"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:gravity="center"
-        android:text="متصل نیست"
-        android:textColor="@color/gray2"
-        android:textSize="14sp" />
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center|center_horizontal|center_vertical"
+            android:orientation="vertical"
+            android:weightSum="3">
 
-    <TextView
-        android:id="@+id/connected_server_delay"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginVertical="8dp"
-        android:gravity="center"
-        android:text="تست سرور"
-        android:textColor="@color/gray2"
+        <Button
+            android:id="@+id/btnToggle"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_centerInParent="true"
+            android:background="@drawable/circle_button"
+            android:gravity="center"
+            android:text="OFF"
+            android:textColor="@color/white"
+            android:textSize="20sp" />
 
-        android:textSize="14sp"
-        android:textStyle="bold" />
+            <TextView
+            android:id="@+id/core_version"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="@string/notconnect"
+            android:textColor="@color/gray2"
+            android:textSize="14sp" />
 
-    <TextView
-        android:id="@+id/versionnn"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center|top"
-        android:textColor="@color/gray2"
+        <TextView
+            android:id="@+id/connected_server_delay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="8dp"
+            android:gravity="center"
+            android:text="@string/testserver"
+            android:textColor="@color/gray2"
+
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/versionnn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center|top"
+            android:textColor="@color/gray2"
 
 
-        />
+            />
 
-</LinearLayout>
+            <ImageView
+                android:id="@+id/flgimg"
+                android:layout_width="60dp"
+                android:layout_height="30dp"
+
+                />
+
+        </LinearLayout>
+
+    <com.google.android.material.navigation.NavigationView
+        android:id="@+id/na"
+        android:layout_width="300dp"
+        android:layout_height="500dp"
+        android:layout_gravity="right"
+        android:background="@drawable/tttt"
+        app:headerLayout="@layout/heder"
+        app:itemTextColor="@color/yello"
+
+        app:menu="@menu/options_menu">
+
+    </com.google.android.material.navigation.NavigationView>
+
+    </androidx.drawerlayout.widget.DrawerLayout>
+
+</RelativeLayout>

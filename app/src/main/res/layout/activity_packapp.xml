@@ -20,21 +20,25 @@
         android:gravity="center"
         android:textColor="@color/white"
         android:paddingTop="20dp"
-        android:text="اینجا هر نرم افزاری که تیک بزنین و ذخیره کنین وی پی ان روش تاثیر نداره.نرم افزارهای ایرانی که نیاز به فیلترشکن ندارن را بسته به نیاز خود تیک و ذخیره کنین.بصورت پیشفرض تعدادی تیکدار شدن." />
+        android:text="@string/whyapp" />
 
-    <SearchView
+    <EditText
         android:id="@+id/search2"
-        android:layout_width="345dp"
-        android:layout_height="41dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
 
         android:background="@drawable/lll"
         android:gravity="center|center_horizontal"
-        android:hint="جستجوی نرم افزار"
+        android:hint="@string/searchapp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="Autofill,MissingConstraints,TextFields" />
+        android:textSize="14sp"
+
+
+
+    />
 
     <ListView
         android:id="@+id/listview"
