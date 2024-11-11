@@ -12,8 +12,8 @@ public class V2rayConfigModel implements Serializable {
     public String fullJsonConfig;
     public String currentServerAddress = "";
     public int currentServerPort = 443;
-    public int localSocksPort = 10808;
-    public int localHttpPort = 10809;
+    public int localSocksPort = 8848;
+    public int localHttpPort = 13060;
     public int localDNSPort = 1053;
     public boolean enableTrafficStatics = true;
     public boolean enableTrafficStaticsOnNotification = true;

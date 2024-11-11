@@ -422,9 +422,10 @@ public class Pacapp extends AppCompatActivity {
                 });
 
 
+        // create alert dialog
         AlertDialog alertDialog = alertDialogBuilder.create();
 
-     
+        // show it
         alertDialog.show();
 
     }
@@ -447,7 +448,8 @@ public class Pacapp extends AppCompatActivity {
                         listView.setItemChecked(i, true);
 
                     }
-//
+                    // listView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
+
 
                 }
 
