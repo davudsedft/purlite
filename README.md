@@ -5,9 +5,14 @@
 
 <center>
   <picture>
-   <img alt="Shows an illustrated sun in light mode and a moon with stars in dark mode." src="https://purnet.ir/vpn/lite2.png" width="200px"  >
+   <img alt="Shows an illustrated sun in light mode and a moon with stars in dark mode." src="https://github.com/davudsedft/purlite/blob/main/link/pur1.jpg" width="200px"  >
 </picture>
-
+ <picture>
+   <img alt="Shows an illustrated sun in light mode and a moon with stars in dark mode." src="https://github.com/davudsedft/purlite/blob/main/link/pur2.jpg" width="200px"  >
+</picture>
+ <picture>
+   <img alt="Shows an illustrated sun in light mode and a moon with stars in dark mode." src="https://github.com/davudsedft/purlite/blob/main/link/pur3.jpg" width="200px"  >
+</picture>
 </center>
 
 برای خروجی گرفتن از کتابخانه گو
