@@ -2520,7 +2520,7 @@ public class MainActivity extends AppCompatActivity {
             imageView1.setBackgroundResource(R.drawable.chin);
 
         }
-//
+
     }
 
     private void startDownload(String url) {

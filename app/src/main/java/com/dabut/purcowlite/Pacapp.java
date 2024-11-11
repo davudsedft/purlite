@@ -422,10 +422,9 @@ public class Pacapp extends AppCompatActivity {
                 });
 
 
-        // create alert dialog
         AlertDialog alertDialog = alertDialogBuilder.create();
 
-        // show it
+     
         alertDialog.show();
 
     }
