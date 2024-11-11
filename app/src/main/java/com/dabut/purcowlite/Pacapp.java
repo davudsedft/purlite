@@ -401,7 +401,7 @@ public class Pacapp extends AppCompatActivity {
 
 
                     }
-                }).setNegativeButton(getString(R.string.save), new DialogInterface.OnClickListener() {
+                }).setNegativeButton(getString(R.string.stayhere), new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         // if this button is clicked, close
                         // current activity
