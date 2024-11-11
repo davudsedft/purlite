@@ -257,7 +257,7 @@ public class MainActivity extends AppCompatActivity {
 
                 else if (itemId == R.id.splite) {//                        String gg = "https://purnet.ir/pardakht";
 
-                    Intent intent = new Intent(MainActivity.this , Packapp.class);
+                    Intent intent = new Intent(MainActivity.this , Pacapp.class);
                     startActivity(intent);
                     finish();
 
