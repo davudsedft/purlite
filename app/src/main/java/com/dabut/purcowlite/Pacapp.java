@@ -393,7 +393,7 @@ public class Pacapp extends AppCompatActivity {
                         editor.putStringSet("selectedPackages", selectedPackages2);
                         editor.apply();
 
-                        Toast.makeText(Pacapp.this, getString(R.string.ping), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(Pacapp.this, getString(R.string.nashod2), Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(Pacapp.this , MainActivity.class);
                         startActivity(intent);
                         finish();
@@ -401,7 +401,7 @@ public class Pacapp extends AppCompatActivity {
 
 
                     }
-                }).setNegativeButton(getString(R.string.stayhere), new DialogInterface.OnClickListener() {
+                }).setNegativeButton(getString(R.string.stay), new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         // if this button is clicked, close
                         // current activity
