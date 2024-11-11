@@ -447,7 +447,6 @@ public class Pacapp extends AppCompatActivity {
                         listView.setItemChecked(i, true);
 
                     }
-                    // listView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
 //
 
                 }
