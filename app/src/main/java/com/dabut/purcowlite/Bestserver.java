@@ -12,7 +12,7 @@ public class Bestserver {
         return name;
     }
 
-    public int getAge() {
+    public int getPing() {
         return ping;
     }
 }

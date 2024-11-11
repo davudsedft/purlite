@@ -85,6 +85,7 @@ import java.util.Set;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -109,7 +110,7 @@ public class MainActivity extends AppCompatActivity {
     ArrayList<String> vmessLinks, vmessLinks2, vmessLinks3, configarray, sslinks,vmesscount;
     ExecutorService executor;
     ArrayList<Bestserver> pingrun;
-    String lowping;
+    String lowping,khata;
     private Toast backToast;
     private long backPressedTime;
     static Activity fa;
@@ -123,7 +124,7 @@ public class MainActivity extends AppCompatActivity {
     Button vpnon;
     static boolean lang = true;
     private long downloadID;
-
+    int   loname;
     ProgressDialog updial,updial2;
     AlertDialog.Builder dialogBuilder3,dialogBuilder4,alertDialogBuilder2;
     private DrawerLayout drawerLayout ;
@@ -156,10 +157,13 @@ public class MainActivity extends AppCompatActivity {
         if (lang) {
             setApplicationLocale();
 
+             khata = "خطا";
+
 
 
         } else {
             setApplicationLocale2();
+             khata = "Error";
 
         }
 
@@ -407,7 +411,7 @@ public class MainActivity extends AppCompatActivity {
 //String t = "vless://635ffc16-45cc-4716-bdef-2486398240a3@iranshopnetwork.purtuf.ir:2096?path=%2F&security=tls&encryption=none&alpn=http/1.1&host=iranshopnetwork.purtuf.ir&fp=chrome&type=ws&sni=iranshopnetwork.purtuf.ir#nahidv4-vipnahid";
 
 
-                if (contextt.getText().equals(getString(R.string.notconnect)) || contextt.getText().toString().contains(getString(R.string.retry)) || contextt.getText().toString().contains(getString(R.string.khata)) ){
+                if (contextt.getText().equals(getString(R.string.notconnect)) || contextt.getText().toString().contains(getString(R.string.retry)) || contextt.getText().toString().contains(khata) ){
 
 
                     connecting();
@@ -565,118 +569,102 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    public  void fff(){
+    public void fff() {
+        int numServers = vmessLinks.size();
+        CountDownLatch latch = new CountDownLatch(numServers);
 
-
-        for (int j = 0; j <= vmessLinks.size(); j++) {
-            //  new RetrieveFeedTask2().execute("https://www.google.com");
-
-            executor = Executors.newFixedThreadPool(1);
-
-
-            if (j % 2 == 0 ) {
-
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        contextt.setTextColor(Color.YELLOW);
-
-                        contextt.setText("در حال تست سرورها");
-                        // one.start();
-                    }
-                });
-            }
-
-            if (j % 2 != 0 ) {
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        contextt.setTextColor(Color.YELLOW);
-
-                        contextt.setText("در حال انتخاب سرور");
-
-                    }
-                });
-            }
-
+        for (int j = 0; j < numServers; j++) {
+            executor = Executors.newFixedThreadPool(1); // افزایش تعداد نخ‌ها برای بهبود سرعت
 
             int finalJ = j;
-
             executor.submit(() -> {
-                System.out.println("ثطثزعفثق۲ قعددد ");
                 try {
-
-                    sleep(3000);
-
-
-                    String   selectedText= vmessLinks.get(finalJ);
-
-                    if (selectedText.startsWith("ss://")){
-                        selectedText = sss(selectedText);
-
+                    if (finalJ % 2 == 0) {
+                        runOnUiThread(() -> {
+                            contextt.setTextColor(Color.YELLOW);
+                            contextt.setText(getString(R.string.testserver));
+                        });
+                    } else {
+                        runOnUiThread(() -> {
+                            contextt.setTextColor(Color.YELLOW);
+                            contextt.setText(getString(R.string.selectserver));
+                        });
                     }
 
-                    //   wwww = getV2rayServerDelay(selectedText);
+                    Thread.sleep(1000); // کاهش زمان خواب برای بهبود سرعت
 
-
-                    System.out.println("سرور پوارو");
-
-                    //  int delay = (int) V2rayCoreExecutor.getConfigDelay(Utilities.normalizeV2rayFullConfig(selectedText));
+                    String selectedText = vmessLinks.get(finalJ);
+                    if (selectedText.startsWith("ss://")) {
+                        selectedText = sss(selectedText);
+                    }
 
                     long server_delay = V2rayCoreExecutor.getConfigDelay(Utilities.normalizeV2rayFullConfig(selectedText));
-
-
-                    if (server_delay>0) {
+                    if (server_delay > 0) {
                         pingrun.add(new Bestserver(selectedText, longToIntJavaWithMath(server_delay)));
 
-                        @SuppressLint({"NewApi", "LocalSuppress"})
+                        // مرتب‌سازی لیست بر اساس پینگ (age)
+                        Collections.sort(pingrun, new Comparator<Bestserver>() {
+                            @Override
+                            public int compare(Bestserver b1, Bestserver b2) {
+                                return Integer.compare(b1.getPing(), b2.getPing());
+                            }
+                        });
 
-                        Bestserver youngestPerson = Collections.min(pingrun, Comparator.comparing(Bestserver::getAge));
-                        lowping = youngestPerson.getName();
-
-                        pova = getSharedPreferences("pova", Context.MODE_PRIVATE);
-
-                        SharedPreferences.Editor iran2edit = pova.edit();
-
-                        iran2edit.putString(Pova, lowping);
-                        iran2edit.apply();
-
-
-
-
-
-
-
+                        // پس از مرتب‌سازی، کمترین پینگ در ایندکس صفر قرار دارد
+                        Bestserver bestPingServer = pingrun.get(0);
+                        lowping = bestPingServer.getName();
+                           loname  = bestPingServer.getPing();
+                        Log.v("foooooooooooooooooooooooooooo", lowping);
                     }
-
-                    //  executor.execute(new MyRunnable(finalJ));
-
-
-
-
-
-
-
-                }catch (Exception e){
-
+                } catch (Exception e) {
+                    e.printStackTrace();
+                } finally {
+                    latch.countDown();
                 }
-
             });
-
-
-
-
-
         }
 
-        executor.shutdown();
+        executor.submit(() -> {
+            try {
+                if (!latch.await(20, TimeUnit.SECONDS)) {
+                    // Timeout reached
+                    runOnUiThread(() -> {
+                        contextt.setTextColor(Color.RED);
+                        contextt.setText(getString(R.string.khatad));
+                    });
+                    return;
+                }
+
+                runOnUiThread(() -> {
+                    if (!pingrun.isEmpty()) {
+                       // startMyThread();
+
+                        pingrun.set(0,new Bestserver(lowping,loname));
+                        String yy = pingrun.get(0).getName();
+                        contextt.setTextColor(Color.GREEN);
+                        contextt.setText(getString(R.string.moj));
+                    //    Log.v("tyyyyyyyyyyyyyyyy",yy);
+                        V2rayController.startV2ray(MainActivity.this, "Test Server", yy, null);
+                        myloc();
 
 
+                        pova = getSharedPreferences("pova", Context.MODE_PRIVATE);
+                        SharedPreferences.Editor iran2edit = pova.edit();
+                        iran2edit.putString(Pova, lowping);
+                        iran2edit.apply();
+                    } else {
+                        contextt.setTextColor(Color.RED);
+                        contextt.setText(getString(R.string.khatta));
+                    }
+                });
 
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+            }
+        });
 
+        executor.shutdown(); // بستن ExecutorService پس از پایان کار
     }
-
-
 
 
 
@@ -1030,7 +1018,7 @@ public class MainActivity extends AppCompatActivity {
                             contextt.setText(getString(R.string.connecting));
                         }
                     });
-                    String url2 = "https://raw.githubusercontent.com/davudsedft/newpurnet/main/porcowlite.txt";
+                    String url2 = "https://raw.githubusercontent.com/davudsedft/newpurnet/refs/heads/main/porcowlite.txt";
 
 //
 
@@ -1136,10 +1124,16 @@ public class MainActivity extends AppCompatActivity {
                                     }
                                 });
 
-                                if (!utext.contains("vmess://") || !utext.contains("vless://") || !utext.contains("trojan://")) {
-                                   // utext = decodeBase64(utext);
 
+                                if (isBase64(utext)) {
+                                    // ابتدا تبدیل به رشته معمولی
+                                    utext = decodeBase64(utext);
+
+                                    // ادامه کد...
                                 }
+
+
+
                                 // utext = utext.replace("vmess://" , " ");
                                 Pattern pattern = Pattern.compile("(ss|vmess|trojan|vless)://[^\n]+");
                                 Matcher matcher = pattern.matcher(utext);
@@ -1149,7 +1143,7 @@ public class MainActivity extends AppCompatActivity {
                                     vmessLinks.add(matcher.group());
 
                                 }
-                               startMyThread();
+                           //    startMyThread();
                                 fff();
 
 
@@ -1221,6 +1215,14 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
+    private static boolean isBase64(String input) {
+        try {
+            Base64.decode(input, Base64.DEFAULT);
+            return true;
+        } catch (IllegalArgumentException e) {
+            return false;
+        }
+    }
 
     private  String decodeBase64(String coded) {
         byte[] valueDecoded = new byte[0];
@@ -1231,7 +1233,7 @@ public class MainActivity extends AppCompatActivity {
         return new String(valueDecoded);
     }
 
-    private void startMyThread() {
+    private void startMyThread2() {
         myt = new Thread(new Runnable() {
             @Override
             public void run() {
@@ -1247,17 +1249,13 @@ public class MainActivity extends AppCompatActivity {
                                     @Override
                                     public void run() {
                                         contextt.setTextColor(Color.GREEN);
-                                        contextt.setText("مجدد متصل شو");
+                                        contextt.setText(getString(R.string.moj));
                                         try {
                                             sleep(2000);
                                         } catch (InterruptedException e) {
                                             throw new RuntimeException(e);
                                         }
-                                        String yy = pingrun.get(0).getName();
 
-                                        Log.v("tyyyyyyyyyyyyyyyy",yy);
-                                        V2rayController.startV2ray(MainActivity.this, "Test Server", yy, null);
-myloc();
                                     }
 
 
@@ -1275,7 +1273,7 @@ myloc();
                                     @Override
                                     public void run() {
                                         contextt.setTextColor(Color.RED);
-                                        contextt.setText("خطا در اتصال");
+                                        contextt.setText(getString(R.string.khatta));
 
                                     }
                                 });
@@ -2527,15 +2525,15 @@ myloc();
 
     private void startDownload(String url) {
 
-        File previousFile = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), "purvpnupdate.apk");
+        File previousFile = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), "purlitenew.apk");
         if (previousFile.exists()) {
             previousFile.delete(); // حذف فایل قبلی
         }
 
         DownloadManager.Request request = new DownloadManager.Request(Uri.parse(url));
         request.setTitle("دانلود نسخه جدید");
-        request.setDescription("purvpn...");
-        request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, "purvpnupdate.apk");
+        request.setDescription("purlite...");
+        request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, "purlitenew.apk");
         request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
 
         DownloadManager manager = (DownloadManager) getSystemService(Context.DOWNLOAD_SERVICE);
