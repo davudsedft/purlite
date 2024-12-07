@@ -1,1 +1,1 @@
-https://raw.githubusercontent.com/davudsedft/quic/refs/heads/main/purlite
+https://api.github.com/repos/davudsedft/quic/contents/purlite
