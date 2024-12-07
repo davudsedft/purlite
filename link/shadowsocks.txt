@@ -1,1 +1,1 @@
-https://api.github.com/repos/davudsedft/quic/contents/purlite.txt
+https://api.github.com/repos/davudsedft/heyyou/contents/purlite.txt
