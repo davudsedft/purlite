@@ -1,1 +1,1 @@
-https://github.com/davudsedft/purlite/releases/download/Purlite3.8/purlite-3.8-release.apk
+https://github.com/davudsedft/purlite/releases/download/v4.0/purlite-4.0-release.apk
